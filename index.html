@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Surface — Product Review</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --accent: #4b2228;
+        --accent-light: #e3b4b8;
+        --feature-icon-dark: rgba(203, 78, 88, 0.9);
+        --feature-icon-light: var(--accent);
+        --dark-bg: #000;
+        --light-bg: #fff;
+
+        --section-heading-dark: #fff;
+        --section-heading-light: var(--accent);
+        --section-heading-color: var(--section-heading-dark);
+
+        --hero-para-dark: rgba(255, 255, 255, 0.95);
+        --hero-para-light: rgba(0, 0, 0, 0.85);
+        --hero-text-color: var(--hero-para-dark);
+
+        --footer-text-dark: rgba(255, 255, 255, 0.92);
+        --footer-text-light: rgba(0, 0, 0, 0.78);
+        --footer-text-color: var(--footer-text-dark);
+
+        --nav-bg: rgba(0, 0, 0, 0.45);
+        --nav-link-color: #fff;
+        --nav-brand-color: #fff;
+
+        --hero-overlay-color: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0) 0%,
+          #000 100%
+        );
+        --hero-text-color: #fff;
+        --section-bg: #070707;
+        --card-bg: rgba(255, 255, 255, 0.02);
+
+        --nav-glass-dark: rgba(255, 255, 255, 0.03);
+        --nav-glass-light: rgba(255, 255, 255, 0.85);
+        --nav-border-dark: rgba(255, 255, 255, 0.06);
+        --nav-border-light: rgba(0, 0, 0, 0.08);
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto,
+          Arial;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background: var(--dark-bg);
+        color: #fff;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        background: linear-gradient(
+          180deg,
+          var(--nav-glass-dark),
+          rgba(255, 255, 255, 0.015)
+        );
+        backdrop-filter: blur(10px) saturate(140%);
+        -webkit-backdrop-filter: blur(10px) saturate(140%);
+        border-bottom: 1px solid var(--nav-border-dark);
+        box-shadow: 0 8px 30px rgba(2, 6, 23, 0.45);
+        transition: background 0.35s ease, color 0.35s ease,
+          border-color 0.35s ease, box-shadow 0.35s ease;
+      }
+      .navbar .nav-link {
+        color: var(--nav-link-color) !important;
+        transition: color 0.25s ease, background 0.25s ease,
+          transform 0.18s ease;
+        font-weight: 500;
+        margin: 0 8px;
+        cursor: pointer;
+      }
+      .navbar .nav-link:hover {
+        color: var(--accent-light) !important;
+        transform: translateY(-2px);
+      }
+      .navbar-brand {
+        color: var(--nav-brand-color, #fff) !important;
+        font-weight: 700;
+        letter-spacing: 1px;
+        transition: color 0.28s ease;
+      }
+
+      .navbar-toggler {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px 10px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--nav-link-color);
+        border: none;
+        transition: background 0.25s ease, color 0.25s ease,
+          transform 0.16s ease;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+      }
+      .navbar-toggler svg {
+        display: block;
+        width: 22px;
+        height: 22px;
+        stroke: currentColor;
+      }
+      .navbar-toggler[aria-expanded="true"] {
+        transform: scale(1.03);
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .navbar-collapse.show {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
+        backdrop-filter: blur(8px) saturate(120%);
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      }
+
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding-top: 70px;
+        color: #fff;
+        overflow: hidden;
+      }
+
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: opacity 700ms cubic-bezier(0.2, 0.9, 0.2, 1),
+          transform 700ms ease;
+        will-change: opacity, transform;
+        z-index: 0;
+        opacity: 1;
+      }
+
+      .hero-bg.hero-bg-dark {
+        background-image: url("https://assets.newatlas.com/dims4/default/1b95e36/2147483647/strip/true/crop/1800x1014+0+0/resize/1920x1082!/quality/90/?url=http:%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2Farchive%2Fmicrosoft-education-event-announcing-windows-10-s-surface-laptop-4.jpg");
+
+        filter: brightness(0.36) contrast(0.95);
+        transform: scale(1);
+      }
+
+      .hero-bg.hero-bg-light {
+        background-image: url("https://files.tecnoblog.net/wp-content/uploads/2018/10/surface-laptop-2.jpg");
+        opacity: 0;
+        transform: scale(1.02);
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 40%;
+        background: var(--hero-overlay-color);
+        transition: background 0.4s ease, opacity 400ms ease;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 900px;
+        padding: 24px;
+      }
+
+      .hero h1 {
+        font-size: clamp(2rem, 5vw, 3.2rem);
+        margin-bottom: 12px;
+        color: #fff !important;
+        line-height: 1.02;
+      }
+      .hero p {
+        color: #fff !important;
+        font-size: 1.05rem;
+        margin-bottom: 18px;
+        transition: color 0.28s ease;
+      }
+      .hero .btn {
+        background: #000;
+        color: #fff;
+        border-radius: 28px;
+        padding: 10px 26px;
+        font-weight: 600;
+        border: none;
+        transition: transform 0.2s ease, background 0.2s ease;
+      }
+      .hero .btn:hover {
+        background: #222;
+        transform: translateY(-3px);
+      }
+
+      .features {
+        padding: 64px 10%;
+        background: var(--section-bg);
+        color: #fff;
+        transition: background 0.35s ease, color 0.35s ease;
+      }
+
+      .features h2 {
+        font-size: 2rem;
+        margin-bottom: 18px;
+        color: var(--section-heading-color);
+        transition: color 0.28s ease, text-shadow 0.28s ease;
+      }
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 22px;
+        align-items: stretch;
+      }
+      .feature {
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 22px;
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        transition: transform 0.18s ease, background 0.25s ease;
+      }
+      .feature:hover {
+        transform: translateY(-6px);
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .feature svg {
+        width: 44px;
+        height: 44px;
+        flex: 0 0 44px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.6;
+        color: var(--feature-icon-dark);
+        transition: color 0.28s ease, transform 0.18s ease;
+      }
+      body.light-mode .feature svg {
+        color: var(--feature-icon-light);
+      }
+      .feature h5 {
+        margin-bottom: 8px;
+        font-size: 1rem;
+        font-weight: 700;
+      }
+      .feature p {
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .about {
+        padding: 72px 10%;
+        background: var(--section-bg);
+        color: #fff;
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 34px;
+        align-items: center;
+      }
+
+      .about .about-text h2 {
+        font-weight: 800;
+        margin-bottom: 14px;
+        color: var(--section-heading-color);
+        transition: color 0.28s ease;
+      }
+      .about .about-text p {
+        color: var(--hero-text-color);
+        line-height: 1.6;
+        transition: color 0.28s ease;
+      }
+      .about-image {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        background: #111;
+        max-height: 380px;
+      }
+      .about-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .specs {
+        padding: 72px 10%;
+        background: var(--section-bg);
+        color: #fff;
+      }
+      .spec-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+      .spec-card {
+        background: var(--card-bg);
+        border-radius: 10px;
+        padding: 18px;
+        transition: background 0.28s ease, color 0.28s ease,
+          box-shadow 0.28s ease;
+      }
+
+      .spec-card h4 {
+        margin: 0 0 8px;
+        font-weight: 700;
+        color: var(--section-heading-color);
+        transition: color 0.28s ease;
+      }
+      .spec-card ul {
+        margin: 0;
+        padding-left: 18px;
+        color: rgba(255, 255, 255, 0.9);
+        transition: color 0.28s ease;
+      }
+      .spec-card li {
+        margin-bottom: 6px;
+        font-size: 0.95rem;
+        transition: color 0.28s ease;
+      }
+
+      .testimonials {
+        padding: 64px 10%;
+        background: var(--section-bg);
+        color: #fff;
+        transition: background 0.35s ease, color 0.35s ease;
+      }
+      .testimonials .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+      .test-card {
+        background: rgba(255, 255, 255, 0.02);
+        padding: 18px;
+        border-radius: 10px;
+        transition: background 0.28s ease, color 0.28s ease,
+          box-shadow 0.28s ease;
+      }
+      .test-card p {
+        margin: 0 0 10px;
+        color: #eee;
+        transition: color 0.28s ease;
+      }
+      .test-author {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .test-author strong,
+      .test-author small {
+        transition: color 0.28s ease;
+        color: #fff;
+      }
+      .avatar {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: #222;
+        display: inline-block;
+        transition: background 0.28s ease, box-shadow 0.28s ease;
+      }
+
+      .gallery {
+        padding: 48px 10%;
+        background: var(--section-bg);
+        color: #fff;
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        align-items: stretch;
+      }
+      .thumb {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        min-height: 0;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #111;
+        display: block;
+      }
+      .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 360ms ease;
+      }
+      .thumb:hover img {
+        transform: scale(1.03);
+      }
+
+      @media (min-width: 1200px) {
+        .gallery-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
+        }
+      }
+
+      footer {
+        background: var(--section-bg);
+        color: var(--footer-text-color);
+        padding: 44px 10% 60px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        transition: color 0.28s ease, background 0.28s ease;
+      }
+      .footer-brand {
+        font-weight: 800;
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+        color: var(--section-heading-color);
+        transition: color 0.28s ease;
+      }
+      .footer a {
+        color: var(--footer-text-color);
+        transition: color 0.2s;
+      }
+      .footer a:hover {
+        color: var(--accent);
+      }
+      .copy {
+        color: var(--footer-text-color);
+        transition: color 0.28s ease;
+      }
+
+      .mode-toggle {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        cursor: pointer;
+        z-index: 1200;
+        background: #fff;
+        color: var(--accent);
+        transition: background 0.4s ease, color 0.4s ease, transform 0.2s ease;
+        box-shadow: 0 6px 22px rgba(0, 0, 0, 0.25);
+      }
+      .mode-toggle:hover {
+        transform: scale(1.04);
+      }
+      .mode-toggle svg {
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        transition: opacity 0.25s ease;
+        opacity: 0;
+      }
+      .mode-toggle svg.active {
+        opacity: 1;
+      }
+
+      section h2,
+      section h3 {
+        color: var(--section-heading-color);
+        font-weight: 800;
+        margin-bottom: 12px;
+        transition: color 0.28s ease, text-shadow 0.28s ease;
+      }
+
+      .about .about-text h2,
+      .testimonials h2,
+      .gallery h2 {
+        color: var(--section-heading-color);
+        transition: color 0.28s ease, text-shadow 0.28s ease;
+      }
+
+      @media (max-width: 992px) {
+        .features-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .about {
+          grid-template-columns: 1fr;
+        }
+        .about-image {
+          order: -1;
+          margin-bottom: 18px;
+          max-height: 300px;
+        }
+        .spec-grid {
+          grid-template-columns: 1fr;
+        }
+        .testimonials .grid {
+          grid-template-columns: 1fr;
+        }
+        .gallery-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 576px) {
+        .features-grid {
+          grid-template-columns: 1fr;
+          gap: 14px;
+        }
+        .feature {
+          padding: 14px;
+          gap: 12px;
+          align-items: center;
+        }
+        .feature svg {
+          width: 40px;
+          height: 40px;
+          flex: 0 0 40px;
+        }
+        .hero h1 {
+          font-size: clamp(1.6rem, 7vw, 2.4rem);
+        }
+        .gallery-grid {
+          grid-template-columns: 1fr;
+        }
+        .thumb {
+          border-radius: 8px;
+        }
+      }
+
+      .container-like {
+        padding: 0 10%;
+      }
+
+      .features .feature h5,
+      .features .feature p,
+      .features .feature svg {
+        transition: color 0.28s ease, fill 0.28s ease, stroke 0.28s ease,
+          opacity 0.28s ease;
+      }
+      .features .feature h5 {
+        color: #fff;
+      }
+      .features .feature p {
+        color: rgba(255, 255, 255, 0.9);
+      }
+      body.light-mode .features .feature h5 {
+        color: var(--accent);
+      }
+      body.light-mode .features .feature p {
+        color: rgba(0, 0, 0, 0.85);
+      }
+      body.light-mode .features .feature svg {
+        color: var(--accent);
+      }
+
+      body.light-mode {
+        background: var(--light-bg);
+        color: #000;
+        --nav-bg: #ffffff;
+        --nav-link-color: #000000;
+        --nav-brand-color: var(--accent);
+        --hero-overlay-color: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0) 0%,
+          #fff 100%
+        );
+        --hero-text-color: var(--accent);
+
+        --section-heading-color: var(--section-heading-light);
+        --hero-text-color: var(--hero-para-light);
+        --footer-text-color: var(--footer-text-light);
+        --section-bg: #ffffff;
+        --card-bg: rgba(0, 0, 0, 0.03);
+        --nav-glass-dark: rgba(255, 255, 255, 0.82);
+        --nav-border-dark: var(--nav-border-light);
+      }
+
+      body.light-mode .hero-bg.hero-bg-dark {
+        opacity: 0;
+        transform: scale(1.02);
+      }
+      body.light-mode .hero-bg.hero-bg-light {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      body.light-mode .navbar {
+        background: linear-gradient(
+          180deg,
+          var(--nav-glass-dark),
+          rgba(255, 255, 255, 0.94)
+        );
+        border-bottom: 1px solid var(--nav-border-light);
+        box-shadow: 0 8px 22px rgba(2, 6, 23, 0.08);
+      }
+      body.light-mode .navbar-brand {
+        color: var(--nav-brand-color, var(--accent)) !important;
+      }
+      body.light-mode .navbar-toggler {
+        color: #fff;
+        background: var(--accent);
+      }
+      body.light-mode .feature svg {
+        color: var(--feature-icon-light);
+      }
+      body.light-mode .spec-card h4 {
+        color: var(--accent);
+      }
+      body.light-mode .spec-card ul,
+      body.light-mode .spec-card li {
+        color: rgba(0, 0, 0, 0.78);
+      }
+      body.light-mode .test-card {
+        background: rgba(0, 0, 0, 0.03);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+        color: #111;
+      }
+      body.light-mode .test-card p {
+        color: rgba(0, 0, 0, 0.78);
+      }
+      body.light-mode .test-author strong {
+        color: rgba(0, 0, 0, 0.88);
+      }
+      body.light-mode .test-author small {
+        color: rgba(0, 0, 0, 0.65);
+      }
+      body.light-mode .avatar {
+        background: #e6e6e6;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      }
+      body.light-mode .thumb img {
+        filter: none;
+        opacity: 1;
+      }
+
+      .navbar-collapse .nav-link {
+        padding: 12px 8px;
+        display: block;
+      }
+      .navbar-collapse .nav-link:hover {
+        background: rgba(255, 255, 255, 0.02);
+      }
+      body.light-mode .navbar-collapse .nav-link:hover {
+        background: rgba(0, 0, 0, 0.03);
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand ms-3" href="#">SURFACE</a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navCollapse"
+          aria-controls="navCollapse"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M3 6h18"></path>
+            <path d="M3 12h18"></path>
+            <path d="M3 18h18"></path>
+          </svg>
+        </button>
+
+        <div
+          class="collapse navbar-collapse justify-content-center"
+          id="navCollapse"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="#hero">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#features">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#specs">Specifications</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#gallery">Gallery</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section id="hero" class="hero">
+      <div class="hero-bg hero-bg-dark" aria-hidden="true"></div>
+      <div class="hero-bg hero-bg-light" aria-hidden="true"></div>
+      <div class="hero-content">
+        <h1>Microsoft Surface Laptop</h1>
+        <p>Elegant design. Powerful performance. Built for productivity.</p>
+        <div class="d-flex justify-content-center gap-3">
+          <a href="#about" class="btn">Learn More</a>
+          <a
+            href="https://www.microsoft.com"
+            class="btn btn-outline-light"
+            style="
+              border-radius: 28px;
+              color: #fff;
+              border-color: rgba(255, 255, 255, 0.2);
+            "
+            >Buy</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="features">
+      <div class="container-like">
+        <h2>Key Features</h2>
+        <div class="features-grid" aria-hidden="false">
+          <div class="feature">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="2" y="4" width="20" height="12" rx="1.5" ry="1.5"></rect>
+              <path d="M8 20h8"></path>
+              <path d="M12 16v4"></path>
+            </svg>
+            <div>
+              <h5>PixelSense™ Display</h5>
+              <p>
+                13.5" high-resolution touchscreen with a 3:2 aspect ratio for
+                more vertical content.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="2" y="7" width="16" height="10" rx="2"></rect>
+              <rect x="18" y="10" width="2" height="4" rx="1"></rect>
+              <path d="M6 11v4"></path>
+              <path d="M10 11v4"></path>
+            </svg>
+            <div>
+              <h5>All-day Battery</h5>
+              <p>
+                Up to 14.5 hours of video playback — work longer without
+                charging.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+              <path d="M4 9h1M7 9h10M4 12h1M7 12h10M4 15h1M7 15h10"></path>
+            </svg>
+            <div>
+              <h5>Alcantara® Keyboard</h5>
+              <p>
+                Luxurious fabric-covered palm rest that feels soft and premium
+                while typing.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 2l4 3v3a4 4 0 01-8 0V5l4-3z"></path>
+              <path d="M5 8v7a7 7 0 0014 0V8"></path>
+            </svg>
+            <div>
+              <h5>Windows Hello</h5>
+              <p>
+                Secure TPM and facial sign-in provide fast, password-free access
+                and data protection.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="about-text">
+        <h2>About</h2>
+        <p>
+          The Surface Laptop (1st Gen) combines elegant design and reliable
+          performance. With an ultra-slim aluminum body, Alcantara® keyboard,
+          and a vibrant 13.5" PixelSense™ display, it delivers a premium
+          experience for students and professionals. Designed for portability
+          and productivity, it pairs a lightweight chassis with long battery
+          life and a comfortable typing experience.
+        </p>
+      </div>
+      <div class="about-image">
+        <img
+          src="https://images.macrumors.com/t/Q-FJC6Ln8kZIQajows9MH6tDlg4=/800x0/article-new/2017/05/surface-mouse-1.jpg?lossy"
+          alt="Surface - placeholder"
+        />
+      </div>
+    </section>
+
+    <section id="specs" class="specs">
+      <h2>Specifications</h2>
+      <div class="spec-grid">
+        <div class="spec-card">
+          <h4>Performance</h4>
+          <ul>
+            <li>Processor: 7th Gen Intel® Core™ i5 / i7</li>
+            <li>Memory: 4GB / 8GB / 16GB</li>
+            <li>Storage: 128GB / 256GB / 512GB / 1TB SSD</li>
+          </ul>
+        </div>
+        <div class="spec-card">
+          <h4>Display & Media</h4>
+          <ul>
+            <li>13.5” PixelSense™ Display (2256 × 1504)</li>
+            <li>Omnisonic speakers with Dolby® Audio™ Premium</li>
+            <li>720p HD front-facing camera</li>
+          </ul>
+        </div>
+        <div class="spec-card">
+          <h4>Battery & Power</h4>
+          <ul>
+            <li>Battery Life: Up to 14.5 hours (video playback)</li>
+            <li>Surface Connect port, efficient power delivery</li>
+          </ul>
+        </div>
+        <div class="spec-card">
+          <h4>Ports & Connectivity</h4>
+          <ul>
+            <li>USB-A, Mini DisplayPort, Surface Connect, 3.5mm audio</li>
+            <li>Wi-Fi 802.11 a/b/g/n/ac, Bluetooth 4.0</li>
+            <li>Security: TPM, Windows Hello facial sign-in</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials" class="testimonials">
+      <div class="container-like">
+        <h2>What users say</h2>
+        <div class="grid">
+          <div class="test-card">
+            <p>
+              "Solid build and comfortable keyboard — great for daily
+              productivity and quick presentations."
+            </p>
+            <div class="test-author">
+              <span
+                class="avatar"
+                style="
+                  background-image: url('https://i.pravatar.cc/80?img=12');
+                  background-size: cover;
+                "
+              ></span>
+              <div><strong>Dani H.</strong><br /><small>Student</small></div>
+            </div>
+          </div>
+
+          <div class="test-card">
+            <p>
+              "Elegant design and battery life that lasts through long meetings.
+              Highly recommend."
+            </p>
+            <div class="test-author">
+              <span
+                class="avatar"
+                style="
+                  background-image: url('https://i.pravatar.cc/80?img=5');
+                  background-size: cover;
+                "
+              ></span>
+              <div><strong>Naomi G.</strong><br /><small>Designer</small></div>
+            </div>
+          </div>
+
+          <div class="test-card">
+            <p>
+              "The Surface Laptop is perfect for my college work — light, fast,
+              and the screen is beautiful."
+            </p>
+            <div class="test-author">
+              <span
+                class="avatar"
+                style="
+                  background-image: url('https://i.pravatar.cc/80?img=15');
+                  background-size: cover;
+                "
+              ></span>
+              <div>
+                <strong>Francis A.</strong><br /><small>IT Professional</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+      <div class="container-like">
+        <h2>Gallery</h2>
+        <div class="gallery-grid">
+          <div class="thumb">
+            <img
+              src="https://digitogy.com/wp-content/uploads/2018/12/ms-laptops.jpg"
+              alt="thumb"
+            />
+          </div>
+          <div class="thumb">
+            <img
+              src="https://i.pinimg.com/736x/07/a5/8c/07a58c46d5c88d6d0b64050c80a86349.jpg"
+              alt="thumb"
+            />
+          </div>
+          <div class="thumb">
+            <img
+              src="https://www.it24hrs.com/wp-content/uploads/2017/05/microsoft-surface-labtop-windows-10-s-p01.jpg"
+              alt="thumb"
+            />
+          </div>
+          <div class="thumb">
+            <img
+              src="https://www.digitaltrends.com/wp-content/uploads/2019/06/mssurface_front_0366_v2_rgb.jpg?p=1"
+              alt="thumb"
+            />
+          </div>
+          <div class="thumb">
+            <img
+              src="https://www.yankodesign.com/images/design_news/2020/08/auto-draft/Reiten_Cheng_Microsoft_Surface_smartwatch_09.jpg"
+              alt="thumb"
+            />
+          </div>
+          <div class="thumb">
+            <img
+              src="https://i.pinimg.com/originals/69/b3/54/69b3542e71c54f35b9a6c3f9f7c40f06.jpg"
+              alt="thumb"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="py-5 text-center">
+      <div class="footer-brand">SURFACE</div>
+      <p>Innovating the way you work, play, and create.</p>
+
+      <div class="social-icons my-3">
+        <a href="#"
+          ><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.12 8.44 9.88v-6.99H7.9v-2.89h2.54V9.6c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.45h-1.25c-1.23 0-1.62.77-1.62 1.56v1.88h2.77l-.44 2.89h-2.33v6.99C18.34 21.12 22 16.99 22 12z"
+            /></svg
+        ></a>
+        <a href="#"
+          ><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12c0 3.22 1.63 6.07 4.09 7.73.3.18.65.27 1 .27.55 0 1.07-.22 1.45-.6.07-.07.13-.14.19-.22.06-.07.13-.1.22-.04.34.22.74.34 1.18.34.55 0 1.07-.22 1.45-.6C18.37 18.07 20 15.22 20 12c0-5.52-4.48-10-10-10z"
+            /></svg
+        ></a>
+        <a href="#"
+          ><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M19 3H5c-1.1 0-2 .9-2 2v14a2 2 0 002 2h7v-7H9v-3h3V9.5c0-3 1.79-4.5 4.4-4.5 1.24 0 2.56.22 2.56.22V8h-1.26c-1.24 0-1.63.77-1.63 1.55V12h2.78l-.44 3H15v7h4a2 2 0 002-2V5c0-1.1-.9-2-2-2z"
+            /></svg
+        ></a>
+      </div>
+
+      <h6 class="fw-bold mb-2">Quick Links</h6>
+      <ul class="list-unstyled mb-0 d-inline-block">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#specs">Specifications</a></li>
+      </ul>
+
+      <p class="copy mt-4 text-center">
+        © 2025 Surface Technologies. All rights reserved.<br />Product details
+        are subject to change. For full specifications, visit Microsoft Support.
+      </p>
+    </footer>
+
+    <button
+      id="modeToggle"
+      class="mode-toggle"
+      aria-label="Toggle theme"
+      title="Toggle theme"
+    >
+      <svg
+        id="sunIcon"
+        viewBox="0 0 24 24"
+        class="active"
+        fill="none"
+        stroke="currentColor"
+      >
+        <path
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M21 12.79A9 9 0 0111.21 3 7 7 0 1012 21a9 9 0 009-8.21z"
+        />
+      </svg>
+
+      <svg id="moonIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <circle cx="12" cy="12" r="5" stroke-width="1.6"></circle>
+        <path
+          stroke-width="1.6"
+          d="M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"
+        />
+        <path d="M12 7a5 5 0 0 0 0 10" stroke-width="1.6" opacity="0.25" />
+      </svg>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      (function () {
+        const body = document.body;
+        const toggleBtn = document.getElementById("modeToggle");
+        const sunIcon = document.getElementById("sunIcon");
+        const moonIcon = document.getElementById("moonIcon");
+        const navCollapse = document.getElementById("navCollapse");
+        const navToggler = document.querySelector(".navbar-toggler");
+        const brand = document.querySelector(".navbar-brand");
+
+        const saved = localStorage.getItem("site-mode");
+        if (saved === "light") body.classList.add("light-mode");
+
+        function applyToggleState() {
+          const light = body.classList.contains("light-mode");
+          sunIcon.classList.toggle("active", light);
+          moonIcon.classList.toggle("active", !light);
+
+          if (light) {
+            toggleBtn.style.background = "var(--accent)";
+            toggleBtn.style.color = "#fff";
+          } else {
+            toggleBtn.style.background = "#fff";
+            toggleBtn.style.color = "var(--accent)";
+          }
+
+          if (brand) {
+            if (light)
+              brand.style.color =
+                getComputedStyle(document.documentElement).getPropertyValue(
+                  "--nav-brand-color"
+                ) || "var(--accent)";
+            else
+              brand.style.color =
+                getComputedStyle(document.documentElement).getPropertyValue(
+                  "--nav-brand-color"
+                ) || "#fff";
+          }
+        }
+        applyToggleState();
+
+        toggleBtn.addEventListener("click", () => {
+          body.classList.toggle("light-mode");
+          const isLight = body.classList.contains("light-mode");
+          localStorage.setItem("site-mode", isLight ? "light" : "dark");
+          applyToggleState();
+        });
+
+        if (navCollapse && navToggler) {
+          navCollapse.addEventListener("shown.bs.collapse", () =>
+            navToggler.setAttribute("aria-expanded", "true")
+          );
+          navCollapse.addEventListener("hidden.bs.collapse", () =>
+            navToggler.setAttribute("aria-expanded", "false")
+          );
+        }
+
+        document
+          .querySelectorAll(".navbar-collapse .nav-link")
+          .forEach((link) => {
+            link.addEventListener("click", () => {
+              if (window.getComputedStyle(navToggler).display !== "none") {
+                const bsCollapse =
+                  bootstrap.Collapse.getInstance(navCollapse) ||
+                  new bootstrap.Collapse(navCollapse, { toggle: false });
+                bsCollapse.hide();
+              }
+            });
+          });
+      })();
+    </script>
+  </body>
+</html>
